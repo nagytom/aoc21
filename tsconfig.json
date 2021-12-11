@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "isolatedModules": true,
+    "lib": ["ES2021"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "target": "ES2021"
+  }
+}

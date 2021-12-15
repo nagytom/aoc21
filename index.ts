@@ -1,3 +1,5 @@
+import { performance } from "perf_hooks";
+
 const day = process.argv[2];
 
 if (process.argv.length !== 3 || !/^\d{1,2}$/.test(day)) {
@@ -6,6 +8,12 @@ if (process.argv.length !== 3 || !/^\d{1,2}$/.test(day)) {
 }
 
 type DayModule = { main: () => Promise<void> };
-import(`./lib/day${day.padStart(2, "0")}`).then((m: DayModule) => m.main());
+(async () => {
+  const m: DayModule = await import(`./lib/day${day.padStart(2, "0")}`);
+  const start = performance.now();
+  await m.main();
+  const execTime = Math.round(performance.now() - start);
+  process.stdout.write(`Execution time: ${execTime}ms\n`);
+})();
 
 export {};
